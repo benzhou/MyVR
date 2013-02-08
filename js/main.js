@@ -251,12 +251,11 @@ var application = {};
             }
         },
         dotsMap:[
-            {name: "Dot 1", x:400,y:258}
-            //,
-            //{name: "Dot 2",x:300,y:123},
+            {name: "Dot 1", x:400,y:258},
+            {name: "Dot 2",x:300,y:123},
             //{name: "Dot 3",x:235,y:365},
             //{name: "Dot 4",x:510,y:98},
-            //{name: "Dot 5",x:90,y:360}
+            {name: "Dot 5",x:90,y:360}
         ],
         myObj : {
             name: "Player 1",
