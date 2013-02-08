@@ -40,6 +40,7 @@ var application = {};
             y : 0
         },
         myName : "Element",
+        objType : 0,
         echoMyName : function(){
             console.log("My name is: " + this.myName);
         },
@@ -62,8 +63,13 @@ var application = {};
               height: 0
           }
         },
-        collisionTest : function(x, y, width, height){
-            if (this.position.x + this.width/2 >= x-width/2 && this.position.x-this.width/2 <= x+width/2 && this.position.y+ this.height/2 >= y-height/2 && this.position.y-this.height/2 <= y+height/2) {
+        collisionTest : function(obj){
+            if(!obj) return false;
+
+            var x1 = this.position.x,y1 = this.position.y,w1 = this.width,h1=this.height,
+                x2 = obj.position.x,y2 = obj.position.y, w2=obj.width,h2=obj.height;
+
+            if (x1 + w1/2 >= x2-w2/2 && x1-w1/2 <= x2+w2/2 && y1+ h1/2 >= y2-h2/2 && y1-h1/2 <= y2+h2/2) {
                 return true;    // if a hit, return true
             }
 
@@ -132,6 +138,7 @@ var application = {};
 
     var FlashingDot = application.FlashingDot = StaticObject.extend({
         constructor : function(opt){
+            this.objType = 2;
             this.myName = opt.name || "Flashing Dot";
 
             _.extend(this.position, opt.position);
@@ -144,12 +151,20 @@ var application = {};
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
         collision : function(obj){
-            this.isAlive = false;
+            if(obj.objType === this.objType){
+                return;
+            }
+
+            if(this.collisionTest(obj)){
+                console.log("Touched something " + this.myName);
+                this.isAlive = false;
+            }
         }
     });
 
     var Snake = application.Snake = MovingObject.extend({
         constructor: function(opt){
+            this.objType = 1;
             this.myName = opt.name || "Snake Player 1";
             this.position = {x: opt.position.x, y:opt.position.y};
             this.width = opt.width;
@@ -160,9 +175,12 @@ var application = {};
             //console.log(this.world);
 
             this.bodyCount = 5;
+            this.bodyParts = [];
             this.direction = opt.direction || "right";
             this.defaultSpeed = opt.speed;
             this.lastPosition = [];
+            this.isAlive = true;
+
 
             //console.log(this);
             //this.constructor.__super__.constructor.apply(this, [opt]);
@@ -191,12 +209,46 @@ var application = {};
                     y: this.position.y + offsetY
                 });
             }
+            //bodyParts record all body parts location.
+            this.bodyParts = this.lastPosition.slice(0);
+
+            //Last position has the latest head location at last in the array
             this.lastPosition.reverse();
             //console.log(this.lastPosition);
 
         },
         myName : "Snake",
         move : function(param){
+            //We need to stop the snake be able to move to the opposite direction
+            var oppositeDirection = false;
+
+            switch(param.direction){
+                case "up":
+                    if(this.direction === "down"){
+                        oppositeDirection = true;
+                    }
+                    break;
+                case "down":
+                    if(this.direction === "up"){
+                        oppositeDirection = true;
+                    }
+                    break;
+                case "right":
+                    if(this.direction === "left"){
+                        oppositeDirection = true;
+                    }
+                    break;
+                case "left":
+                    if(this.direction === "right"){
+                        oppositeDirection = true;
+                    }
+                    break;
+            }
+
+            if(oppositeDirection){
+                return;
+            }
+
             //change the direction
             this.direction = param.direction;
 
@@ -206,12 +258,7 @@ var application = {};
             //record the new snake head's position
             this.lastPosition.push({x:this.position.x, y:this.position.y});
 
-            //If lastPosition queue is longer than total body count, trim it.
-            //if(this.lastPosition.length > this.bodyCount){
-            //    this.lastPosition.splice(0, this.lastPosition.length - this.bodyCount)
-            //}
-
-            //console.log(this.lastPosition);
+            this.bodyParts = this.lastPosition.slice(this.lastPosition.length - this.bodyCount , this.lastPosition.length - 1).reverse();
         },
         paint: function(canvas, context){
             context.lineWidth = 2;
@@ -233,8 +280,36 @@ var application = {};
             }
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
+        collisionToSelf : function(){
+            var hitSelf = false;
+
+            for(var i = 2, l = this.bodyParts.length; i< l; i++){
+                var bodyPart = {position:{x:this.bodyParts[i].x, y:this.bodyParts[i].y}, width:this.width, height:this.height};
+                if(this.collisionTest(bodyPart)){
+                    console.log(this.bodyParts);
+                    console.log(bodyPart);
+                    hitSelf = true;
+                    break;
+                };
+            }
+
+            if(hitSelf){
+                this.isAlive = false;
+                console.log("Snake just dead!");
+            }
+        },
         collision : function(obj){
-            this.bodyCount ++;
+            if(obj.objType === this.objType){
+                //we need to test if the snake hits itself then it is GAME OVER.
+                if(this.isAlive){
+                    this.collisionToSelf();
+                }
+                return;
+            }
+
+            if(obj.isAlive && this.collisionTest(obj)){
+                this.bodyCount ++;
+            }
         }
     });
 }).call(this, _);
@@ -323,12 +398,18 @@ var application = {};
         skynet.push(currentDot);
 
         var timeLine = setInterval(function(){
+            if(!player.isAlive){
+                clearInterval(timeLine);
+                return;
+            }
+
             if(!currentDot.isAlive){
                 if(c.dotsMap.length == 0){
                     clearInterval(timeLine);
                     return;
                 }
 
+                skynet.pop();
                 currentDotConfig = c.dotsMap.shift(),
                 currentDot = new application.FlashingDot({
                     name : currentDotConfig.name,
@@ -337,6 +418,7 @@ var application = {};
                         y:currentDotConfig.y
                     }
                 });
+                skynet.push(currentDot);
             }
 
             switch(player.direction){
@@ -356,16 +438,22 @@ var application = {};
                     break;
             }
 
-            //Test collision
-
-            if(player.collisionTest(currentDot.position.x, currentDot.position.y, currentDot.width, currentDot.height)){
-                player.collision();
-                currentDot.collision();
-            }
         }, c.defaultSpeed);
 
     },
     run = function(canvas, context, skynet){
+        //Test collision
+        _.each(skynet, function(e,i,l){
+            _.each(skynet, function(e2, i2, l2){
+                e.collision(e2);
+            });
+        });
+
+        //if(player.collisionTest(currentDot.position.x, currentDot.position.y, currentDot.width, currentDot.height)){
+        //    player.collision();
+        //    currentDot.collision();
+        //}
+
         render(canvas, context, skynet);
     },
     render = function(canvas, context, skynet){
