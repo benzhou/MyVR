@@ -359,7 +359,6 @@ var application = {};
 
         var context = canvas.getContext('2d');
 
-        //TODO: Adds event listener
         $("body").keydown(function(e){
             e.preventDefault();
             //utils.print(e);
@@ -411,6 +410,7 @@ var application = {};
 
                 skynet.pop();
                 currentDotConfig = c.dotsMap.shift(),
+                console.log(currentDotConfig);
                 currentDot = new application.FlashingDot({
                     name : currentDotConfig.name,
                     position:{
@@ -418,6 +418,7 @@ var application = {};
                         y:currentDotConfig.y
                     }
                 });
+
                 skynet.push(currentDot);
             }
 

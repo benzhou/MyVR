@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef66083-7ea8-4c67-b1e1-19448a19ab39" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
     </list>
     <ignored path="MyVR.iws" />
@@ -34,7 +35,7 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="404" column="0" selection-start="13307" selection-end="13307" vertical-scroll-proportion="0.27784157">
+            <state line="238" column="21" selection-start="8042" selection-end="8042" vertical-scroll-proportion="0.5744681">
               <folding />
             </state>
           </provider>
@@ -379,7 +380,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="404" column="0" selection-start="13307" selection-end="13307" vertical-scroll-proportion="0.27784157">
+        <state line="238" column="21" selection-start="8042" selection-end="8042" vertical-scroll-proportion="0.5744681">
           <folding />
         </state>
       </provider>
