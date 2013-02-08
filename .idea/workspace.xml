@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef66083-7ea8-4c67-b1e1-19448a19ab39" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
     </list>
     <ignored path="MyVR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,22 +22,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="10" selection-start="561" selection-end="561" vertical-scroll-proportion="0.41420117">
+            <state line="14" column="10" selection-start="561" selection-end="561" vertical-scroll-proportion="-8.75">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="281" column="26" selection-start="9299" selection-end="9299" vertical-scroll-proportion="0.0">
+            <state line="307" column="71" selection-start="10121" selection-end="10121" vertical-scroll-proportion="0.23728813">
               <folding>
-                <element signature="e#10268#12755#0" expanded="false" />
-                <element signature="e#10397#10483#0" expanded="false" />
+                <element signature="e#10388#12875#0" expanded="false" />
+                <element signature="e#10517#10603#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -79,8 +77,8 @@
         <option value="$PROJECT_DIR$/css/main.css" />
         <option value="$PROJECT_DIR$/js/underscore-min.js" />
         <option value="V:/websites/UGC_Contesting/Latest/Scripts/jplayer/jquery.jplayer.js" />
-        <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/main.js" />
       </list>
     </option>
   </component>
@@ -287,8 +285,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="312" column="0" selection-start="10158" selection-end="10158" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#10268#12755#0" expanded="false" />
-            <element signature="e#10397#10483#0" expanded="false" />
+            <element signature="e#10388#12875#0" expanded="false" />
+            <element signature="e#10517#10603#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -317,24 +315,24 @@
     <entry file="file://$PROJECT_DIR$/js/underscore-min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="13453" selection-start="13450" selection-end="13450" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="10" selection-start="561" selection-end="561" vertical-scroll-proportion="-8.75">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="281" column="26" selection-start="9299" selection-end="9299" vertical-scroll-proportion="0.0">
+        <state line="307" column="71" selection-start="10121" selection-end="10121" vertical-scroll-proportion="0.23728813">
           <folding>
-            <element signature="e#10268#12755#0" expanded="false" />
-            <element signature="e#10397#10483#0" expanded="false" />
+            <element signature="e#10388#12875#0" expanded="false" />
+            <element signature="e#10517#10603#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="10" selection-start="561" selection-end="561" vertical-scroll-proportion="0.41420117">
-          <folding />
         </state>
       </provider>
     </entry>

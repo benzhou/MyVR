@@ -91,8 +91,9 @@ var application = {};
         move : function(param){
             var s = param.speed || this.defaultSpeed;
 
-            var cw = param.width, ch = param.height;
-
+            var cw = this.world.size.width, ch = this.world.size.height;
+            //console.log(this.world);
+            //console.log("cw:" + cw + " ch:" + ch);
 
             switch(param.direction){
                 case "up":
@@ -155,7 +156,9 @@ var application = {};
             this.width = opt.width;
             this.height = opt.height;
 
+            console.log(opt.world);
              _.extend(this.world.size, opt.world.size);
+            console.log(this.world);
 
             this.bodyCount = 5;
             this.direction = opt.direction || "right";
@@ -237,20 +240,18 @@ var application = {};
     var config = {
         verbose: true,
         canvasId : 'star_object',
-        iCanvasWith : 1600,
-        iCanvasHeight : 800,
         world:{
             items : [],
             size : {
-                width: this.iCanvasWith,
-                height: this.iCanvasHeight
+                width: 600,
+                height: 400
             }
         },
         myObj : {
             name: "Player 1",
             iObjSize : 100,
-            x : 1000,
-            y : 300,
+            x : 0,
+            y : 0,
             width : 10,
             height: 10,
             speed : 10
@@ -267,8 +268,8 @@ var application = {};
             skynet = [player];
 
         // set size of our canvas area
-        canvas.width = config.iCanvasWith;
-        canvas.height = config.iCanvasHeight;
+        canvas.width = c.world.size.width;
+        canvas.height = c.world.size.height;
 
         var context = canvas.getContext('2d');
 
@@ -304,14 +305,14 @@ var application = {};
     },
     render = function(canvas, context, skynet){
         var c = config;
-        context.clearRect(0, 0, c.iCanvasWith, c.iCanvasHeight);
+        context.clearRect(0, 0, c.world.size.width, c.world.size.height);
         context.save();
 
         _.each(skynet, function(element, index, list){
             element.paint(canvas, context);
         });
 
-        context.fillText('x: ' + skynet[0].x + '; y: ' + skynet[0].y, 10, 15);
+        context.fillText('x: ' + skynet[0].position.x + '; y: ' + skynet[0].position.y, 10, 15);
 
     },
     utils = function(){
