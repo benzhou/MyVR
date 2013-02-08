@@ -63,6 +63,9 @@ var application = {};
               height: 0
           }
         },
+        collision:function(obj){
+            return;
+        },
         collisionTest : function(obj){
             if(!obj) return false;
 
@@ -136,6 +139,26 @@ var application = {};
 
     });
 
+    var GameSubTitle = application.GameSubTitle = StaticObject.extend({
+        constructor : function(opt){
+            this.objType = 3;
+            myName = "GameSubTitle";
+
+            this.text = opt.text || "Game Over .";
+
+            _.extend(this.position, opt.position);
+
+            this.width = opt.width || 200;
+            this.height = opt.height || 80;
+        },
+        paint:function(canvas, context){
+            context.font = "20pt Arial";
+            context.fillText(this.text, this.position.x, this.position.y);
+
+            context.save();
+        }
+    });
+
     var FlashingDot = application.FlashingDot = StaticObject.extend({
         constructor : function(opt){
             this.objType = 2;
@@ -148,10 +171,12 @@ var application = {};
         },
         paint: function(canvas, context){
             context.fillRect(this.position.x, this.position.y, this.width, this.height);
+            context.strokeRect(this.position.x, this.position.y, this.width, this.height);
+            context.save();
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
         collision : function(obj){
-            if(obj.objType === this.objType){
+            if(!this.isAlive || obj.objType === this.objType){
                 return;
             }
 
@@ -278,6 +303,8 @@ var application = {};
                 }
 
             }
+
+            context.save();
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
         collisionToSelf : function(){
@@ -286,8 +313,6 @@ var application = {};
             for(var i = 2, l = this.bodyParts.length; i< l; i++){
                 var bodyPart = {position:{x:this.bodyParts[i].x, y:this.bodyParts[i].y}, width:this.width, height:this.height};
                 if(this.collisionTest(bodyPart)){
-                    console.log(this.bodyParts);
-                    console.log(bodyPart);
                     hitSelf = true;
                     break;
                 };
@@ -326,11 +351,18 @@ var application = {};
             }
         },
         dotsMap:[
-            {name: "Dot 1", x:400,y:258},
-            {name: "Dot 2",x:300,y:123},
-            {name: "Dot 3",x:235,y:365},
-            {name: "Dot 4",x:510,y:98},
-            {name: "Dot 5",x:90,y:360}
+            {name: "Dot 1", x:400,y:260},
+            {name: "Dot 2",x:300,y:120},
+            {name: "Dot 3",x:240,y:360},
+            {name: "Dot 4",x:510,y:100},
+            {name: "Dot 5",x:400,y:60},
+            {name: "Dot 6",x:490,y:180},
+            {name: "Dot 7",x:250,y:260},
+            {name: "Dot 8",x:500,y:200},
+            {name: "Dot 9",x:90,y:360},
+            {name: "Dot 10",x:240,y:20},
+            {name: "Dot 11",x:50,y:360},
+            {name: "Dot 12",x:190,y:50}
         ],
         myObj : {
             name: "Player 1",
@@ -397,14 +429,20 @@ var application = {};
         skynet.push(currentDot);
 
         var timeLine = setInterval(function(){
-            if(!player.isAlive){
-                clearInterval(timeLine);
-                return;
-            }
-
             if(!currentDot.isAlive){
                 if(c.dotsMap.length == 0){
                     clearInterval(timeLine);
+
+                    var gameOverWin = new application.GameSubTitle({
+                        position:{
+                            x: c.world.size.width/2 - 100,
+                            y: c.world.size.height/2 - 40
+                        },
+                        width:200,
+                        height:80,
+                        text:"You Win!"
+                    });
+                    skynet.push(gameOverWin);
                     return;
                 }
 
@@ -420,6 +458,22 @@ var application = {};
                 });
 
                 skynet.push(currentDot);
+            }
+
+            if(!player.isAlive){
+                clearInterval(timeLine);
+
+                var gameOver = new application.GameSubTitle({
+                    position:{
+                        x: c.world.size.width/2 - 100,
+                        y: c.world.size.height/2 - 40
+                    },
+                    width:200,
+                    height:80,
+                    text:"Game Over!"
+                });
+                skynet.push(gameOver);
+                return;
             }
 
             switch(player.direction){
@@ -466,9 +520,10 @@ var application = {};
             element.paint(canvas, context);
         });
 
+        context.font = "12pt Arial";
         context.fillText('Player x: ' + skynet[0].position.x + '; y: ' + skynet[0].position.y, 10, 15);
-        context.fillText('Current Dot: "' +  skynet[1].myName + '" x: ' + skynet[1].position.x + '; y: ' + skynet[1].position.y, 10, 25);
-
+        context.fillText('Current Dot: "' +  skynet[1].myName + '" x: ' + skynet[1].position.x + '; y: ' + skynet[1].position.y, 10, 35);
+        context.save();
     },
     utils = function(){
         var print = function(msg){
