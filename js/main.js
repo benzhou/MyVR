@@ -330,6 +330,7 @@ var application = {};
                 }
 
                 currentDotConfig = c.dotsMap.shift(),
+                console.log(currentDotConfig);
                 currentDot = new application.FlashingDot({
                     name : currentDotConfig.name,
                     position:{
@@ -337,6 +338,8 @@ var application = {};
                         y:currentDotConfig.y
                     }
                 });
+                skynet.pop();
+                skynet.push(currentDot);
             }
 
             switch(player.direction){
