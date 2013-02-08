@@ -373,7 +373,8 @@ var application = {};
             height: 10,
             speed : 10
         },
-        defaultSpeed : 500
+        defaultTimerTick : 500,
+        autoMovingFactor : 1
     },
     constants = {
 
@@ -428,7 +429,7 @@ var application = {};
 
         skynet.push(currentDot);
 
-        var timeLine = setInterval(function(){
+        var timeLine = setVariableInterval(function(){
             if(!currentDot.isAlive){
                 if(c.dotsMap.length == 0){
                     clearInterval(timeLine);
@@ -445,6 +446,8 @@ var application = {};
                     skynet.push(gameOverWin);
                     return;
                 }
+
+                this.interval = this.interval - 40;
 
                 skynet.pop();
                 currentDotConfig = c.dotsMap.shift(),
@@ -489,11 +492,9 @@ var application = {};
                 case "down":
                     player.moveDown();
                     break;
-                default:
-                    break;
             }
 
-        }, c.defaultSpeed);
+        }, c.defaultTimerTick);
 
     },
     run = function(canvas, context, skynet){
@@ -602,3 +603,34 @@ var application = {};
 
 
 
+window.setVariableInterval = function(callbackFunc, timing) {
+    var variableInterval = {
+        interval: timing,
+        callback: callbackFunc,
+        stopped: false,
+        runLoop: function() {
+            if (variableInterval.stopped) return;
+            var result = variableInterval.callback.call(variableInterval);
+            if (typeof result == 'number')
+            {
+                if (result === 0) return;
+                variableInterval.interval = result;
+            }
+            variableInterval.loop();
+        },
+        stop: function() {
+            this.stopped = true;
+            window.clearTimeout(this.timeout);
+        },
+        start: function() {
+            this.stopped = false;
+            return this.loop();
+        },
+        loop: function() {
+            this.timeout = window.setTimeout(this.runLoop, this.interval);
+            return this;
+        }
+    };
+
+    return variableInterval.start();
+};

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef66083-7ea8-4c67-b1e1-19448a19ab39" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
     </list>
     <ignored path="MyVR.iws" />
@@ -34,9 +35,9 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="362" column="40" selection-start="12235" selection-end="12235" vertical-scroll-proportion="0.6182033">
+            <state line="449" column="50" selection-start="14860" selection-end="14860" vertical-scroll-proportion="0.5579196">
               <folding>
-                <element signature="e#17334#19821#0" expanded="false" />
+                <element signature="e#17381#19868#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -285,7 +286,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="169" column="64" selection-start="5771" selection-end="5771" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#17334#19821#0" expanded="false" />
+            <element signature="e#17381#19868#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -315,7 +316,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="329" column="27" selection-start="10930" selection-end="10930" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#17334#19821#0" expanded="false" />
+            <element signature="e#17381#19868#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -345,7 +346,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="312" column="0" selection-start="10158" selection-end="10158" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#17334#19821#0" expanded="false" />
+            <element signature="e#17381#19868#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -387,9 +388,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="362" column="40" selection-start="12235" selection-end="12235" vertical-scroll-proportion="0.6182033">
+        <state line="449" column="50" selection-start="14860" selection-end="14860" vertical-scroll-proportion="0.5579196">
           <folding>
-            <element signature="e#17334#19821#0" expanded="false" />
+            <element signature="e#17381#19868#0" expanded="false" />
           </folding>
         </state>
       </provider>
