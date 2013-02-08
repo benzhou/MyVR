@@ -34,10 +34,10 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="59" selection-start="4450" selection-end="4450" vertical-scroll-proportion="0.63276833">
+            <state line="329" column="27" selection-start="10930" selection-end="10930" vertical-scroll-proportion="1.4015445">
               <folding>
-                <element signature="e#11589#14076#0" expanded="false" />
-                <element signature="e#11718#11804#0" expanded="false" />
+                <element signature="e#12700#15187#0" expanded="false" />
+                <element signature="e#12829#12915#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -285,8 +285,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="312" column="0" selection-start="10158" selection-end="10158" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#11589#14076#0" expanded="false" />
-            <element signature="e#11718#11804#0" expanded="false" />
+            <element signature="e#12700#15187#0" expanded="false" />
+            <element signature="e#12829#12915#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -328,10 +328,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="59" selection-start="4450" selection-end="4450" vertical-scroll-proportion="0.63276833">
+        <state line="329" column="27" selection-start="10930" selection-end="10930" vertical-scroll-proportion="1.4015445">
           <folding>
-            <element signature="e#11589#14076#0" expanded="false" />
-            <element signature="e#11718#11804#0" expanded="false" />
+            <element signature="e#12700#15187#0" expanded="false" />
+            <element signature="e#12829#12915#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -62,8 +62,12 @@ var application = {};
               height: 0
           }
         },
-        collisionTest : function(o){
-           return false;
+        collisionTest : function(x, y, width, height){
+            if (this.position.x + this.width/2 >= x-width/2 && this.position.x-this.width/2 <= x+width/2 && this.position.y+ this.height/2 >= y-height/2 && this.position.y-this.height/2 <= y+height/2) {
+                return true;    // if a hit, return true
+            }
+
+            return false;
         }
     });
 
@@ -139,8 +143,8 @@ var application = {};
             context.fillRect(this.position.x, this.position.y, this.width, this.height);
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
-        collisionTest : function(o){
-            return false;
+        collision : function(obj){
+            this.isAlive = false;
         }
     });
 
@@ -203,9 +207,9 @@ var application = {};
             this.lastPosition.push({x:this.position.x, y:this.position.y});
 
             //If lastPosition queue is longer than total body count, trim it.
-            if(this.lastPosition.length > this.bodyCount){
-                this.lastPosition.splice(0, this.lastPosition.length - this.bodyCount)
-            }
+            //if(this.lastPosition.length > this.bodyCount){
+            //    this.lastPosition.splice(0, this.lastPosition.length - this.bodyCount)
+            //}
 
             //console.log(this.lastPosition);
         },
@@ -217,15 +221,20 @@ var application = {};
                     context.strokeRect(this.position.x, this.position.y, this.width, this.height);
                 }else{
                     //we will use recorded last position queue to paint the rest of the snake,
-                    var pos = this.lastPosition[this.lastPosition.length - 1 - i];
-                    context.strokeRect(pos.x, pos.y, this.width, this.height);
+                    if(this.lastPosition.length - 1 < i){
+                        //console.log("Need add one more now");
+                        console.log(this.lastPosition.length);
+                    }else{
+                        var pos = this.lastPosition[this.lastPosition.length - 1 - i];
+                        context.strokeRect(pos.x, pos.y, this.width, this.height);
+                    }
                 }
 
             }
             //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
         },
-        collisionTest : function(o){
-            return false;
+        collision : function(obj){
+            this.bodyCount ++;
         }
     });
 }).call(this, _);
@@ -242,11 +251,12 @@ var application = {};
             }
         },
         dotsMap:[
-            {name: "Dot 1", x:400,y:258},
-            {name: "Dot 2",x:300,y:123},
-            {name: "Dot 3",x:235,y:365},
-            {name: "Dot 4",x:510,y:98},
-            {name: "Dot 5",x:90,y:360}
+            {name: "Dot 1", x:400,y:258}
+            //,
+            //{name: "Dot 2",x:300,y:123},
+            //{name: "Dot 3",x:235,y:365},
+            //{name: "Dot 4",x:510,y:98},
+            //{name: "Dot 5",x:90,y:360}
         ],
         myObj : {
             name: "Player 1",
@@ -313,8 +323,13 @@ var application = {};
 
         skynet.push(currentDot);
 
-        setInterval(function(){
+        var timeLine = setInterval(function(){
             if(!currentDot.isAlive){
+                if(c.dotsMap.length == 0){
+                    clearInterval(timeLine);
+                    return;
+                }
+
                 currentDotConfig = c.dotsMap.shift(),
                 currentDot = new application.FlashingDot({
                     name : currentDotConfig.name,
@@ -341,6 +356,13 @@ var application = {};
                 default:
                     break;
             }
+
+            //Test collision
+
+            if(player.collisionTest(currentDot.position.x, currentDot.position.y, currentDot.width, currentDot.height)){
+                player.collision();
+                currentDot.collision();
+            }
         }, c.defaultSpeed);
 
     },
@@ -356,7 +378,8 @@ var application = {};
             element.paint(canvas, context);
         });
 
-        context.fillText('x: ' + skynet[0].position.x + '; y: ' + skynet[0].position.y, 10, 15);
+        context.fillText('Player x: ' + skynet[0].position.x + '; y: ' + skynet[0].position.y, 10, 15);
+        context.fillText('Current Dot: "' +  skynet[1].myName + '" x: ' + skynet[1].position.x + '; y: ' + skynet[1].position.y, 10, 25);
 
     },
     utils = function(){
