@@ -133,6 +133,14 @@ var application = {};
             _.extend(this.position, opt.position);
             this.width = opt.width || 10;
             this.height = opt.height || 10;
+            this.isAlive = true;
+        },
+        paint: function(canvas, context){
+            context.fillRect(this.position.x, this.position.y, this.width, this.height);
+            //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
+        },
+        collisionTest : function(o){
+            return false;
         }
     });
 
@@ -234,13 +242,11 @@ var application = {};
             }
         },
         dotsMap:[
-            {
-                position:{x:400,y:258},
-                position:{x:300,y:123},
-                position:{x:235,y:365},
-                position:{x:510,y:98},
-                position:{x:90,y:360}
-            }
+            {name: "Dot 1", x:400,y:258},
+            {name: "Dot 2",x:300,y:123},
+            {name: "Dot 3",x:235,y:365},
+            {name: "Dot 4",x:510,y:98},
+            {name: "Dot 5",x:90,y:360}
         ],
         myObj : {
             name: "Player 1",
@@ -296,7 +302,29 @@ var application = {};
             run(canvas, context,skynet);
         }, 40);
 
+        var currentDotConfig = c.dotsMap.shift(),
+            currentDot = new application.FlashingDot({
+                name : currentDotConfig.name,
+                position:{
+                    x:currentDotConfig.x,
+                    y:currentDotConfig.y
+                }
+            });
+
+        skynet.push(currentDot);
+
         setInterval(function(){
+            if(!currentDot.isAlive){
+                currentDotConfig = c.dotsMap.shift(),
+                currentDot = new application.FlashingDot({
+                    name : currentDotConfig.name,
+                    position:{
+                        x:currentDotConfig.x,
+                        y:currentDotConfig.y
+                    }
+                });
+            }
+
             switch(player.direction){
                 case "left":
                     player.moveLeft();
