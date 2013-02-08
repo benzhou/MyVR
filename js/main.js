@@ -126,26 +126,13 @@ var application = {};
 
     });
 
-    var Person = application.Person = MovingObject.extend({
-        constructor: function(opt){
-            this.myName = opt.name;
-            this.position = {x: opt.position.x, y:opt.position.y};
-            this.width = opt.width;
-            this.height = opt.height;
-            this.defaultSpeed = opt.speed;
+    var FlashingDot = application.FlashingDot = StaticObject.extend({
+        constructor : function(opt){
+            this.myName = opt.name || "Flashing Dot";
 
-            //this.constructor.__super__.constructor.apply(this, [opt]);
-        },
-        myName : "Person",
-        communicate : function(context){
-            console.log("I m a person, this is me:");
-            console.log(this);
-        },
-        paint: function(canvas, context){
-            //context.fillStyle = "rgb(150,29,28)";
-            //console.log('x: ' + this.position.x + ', y: ' + this.position.y + ', width: ' +this.width + ', height: ' +this.height);
-            //context.fillRect (this.position.x, this.position.y, this.width, this.height);
-            context.strokeRect(this.position.x, this.position.y, this.width, this.height);
+            _.extend(this.position, opt.position);
+            this.width = opt.width || 10;
+            this.height = opt.height || 10;
         }
     });
 
@@ -156,16 +143,16 @@ var application = {};
             this.width = opt.width;
             this.height = opt.height;
 
-            console.log(opt.world);
+            //console.log(opt.world);
              _.extend(this.world.size, opt.world.size);
-            console.log(this.world);
+            //console.log(this.world);
 
             this.bodyCount = 5;
             this.direction = opt.direction || "right";
             this.defaultSpeed = opt.speed;
             this.lastPosition = [];
 
-            console.log(this);
+            //console.log(this);
             //this.constructor.__super__.constructor.apply(this, [opt]);
 
             //This is used to initialize the last position queue
@@ -241,12 +228,20 @@ var application = {};
         verbose: true,
         canvasId : 'star_object',
         world:{
-            items : [],
             size : {
                 width: 600,
                 height: 400
             }
         },
+        dotsMap:[
+            {
+                position:{x:400,y:258},
+                position:{x:300,y:123},
+                position:{x:235,y:365},
+                position:{x:510,y:98},
+                position:{x:90,y:360}
+            }
+        ],
         myObj : {
             name: "Player 1",
             iObjSize : 100,
@@ -255,7 +250,8 @@ var application = {};
             width : 10,
             height: 10,
             speed : 10
-        }
+        },
+        defaultSpeed : 500
     },
     constants = {
 
@@ -299,6 +295,26 @@ var application = {};
         setInterval(function(){
             run(canvas, context,skynet);
         }, 40);
+
+        setInterval(function(){
+            switch(player.direction){
+                case "left":
+                    player.moveLeft();
+                    break;
+                case "up":
+                    player.moveUp();
+                    break;
+                case "right":
+                    player.moveRight();
+                    break;
+                case "down":
+                    player.moveDown();
+                    break;
+                default:
+                    break;
+            }
+        }, c.defaultSpeed);
+
     },
     run = function(canvas, context, skynet){
         render(canvas, context, skynet);
